@@ -11,6 +11,9 @@ INSTALL_INCLUDES = include/facebook/feedserviceutils2.h
 INSTALL_PKGCONFIG = feedservice2.pc
 INSTALL_LIBS = libfeedserviceutils2.so.0.0.0
 
+libfeedserviceutils2.so.0.0.0: feedservice2.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $(shell pkg-config --cflags --libs glib-2.0 conic) -fPIC -O2 -shared $^ -o $@
+
 all:
 
 install:
@@ -22,4 +25,4 @@ install:
 	$(INSTALL_PROGRAM) -m644 $(INSTALL_LIBS) $(LIBDIR)
 
 clean:
-	$(RM) *~
+	$(RM) *.o *~ libfeedserviceutils2.so.0.0.0
